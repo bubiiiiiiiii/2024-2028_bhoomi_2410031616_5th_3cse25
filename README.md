@@ -4,26 +4,16 @@
 
 Rather than a generic "citizen complaint portal," PashuMitra is scoped around the real ABC Rules legal workflow (capture → sterilise → vaccinate → release/shelter), the actual stakeholders involved (citizens, ward officers, AWBI-recognised NGOs, veterinary teams), and the public-health urgency around dog-bite and rabies response — grounded in research on existing initiatives like Panvel's ABC Helpline, MCD's feeding-point registry, and DigiLocker/UMANG's identity patterns.
 
-## Project structure
-
-```
-pashumitra-repo/
-├── docs/       → Weekly deliverables (Word documents)
-└── assets/     → Diagrams, wireframes, and charts referenced in each doc
-    ├── week1/
-    ├── week2/
-    ├── week3/
-    └── week4/
-```
-
 ## Weekly deliverables
 
 | Week | Focus | Document | Key artifacts |
 |------|-------|----------|----------------|
-| 1 | Planning & Requirements Analysis | [`docs/PashuMitra_Week1_Project_Plan.docx`](docs/PashuMitra_Week1_Project_Plan.docx) | Stakeholder ecosystem map, grievance lifecycle flowchart, low-fi wireframes, functional/non-functional requirements, risk analysis |
-| 2 | Responsive Web Prototype Design | [`docs/PashuMitra_Week2_Responsive_Prototype.docx`](docs/PashuMitra_Week2_Responsive_Prototype.docx) | Site map & user flow, homepage mockups across 3 breakpoints, high-fidelity report form, fluid grid system, accessibility checklist |
-| 3 | QA & Testing Strategy | [`docs/PashuMitra_Week3_QA_Testing_Strategy.docx`](docs/PashuMitra_Week3_QA_Testing_Strategy.docx) | Test pyramid, CI/CD pipeline, 7 detailed test cases, risk heatmap, defect severity framework |
-| 4 | Performance, Accessibility & Security Audit | [`docs/PashuMitra_Week4_Audit_Report.docx`](docs/PashuMitra_Week4_Audit_Report.docx) | Core Web Vitals & Lighthouse scores, WCAG POUR compliance chart, OWASP-based security findings, prioritised (P0/P1/P2) fix roadmap |
+| 1 | Planning & Requirements Analysis | [`PashuMitra_Week1_Project_Plan.docx`](PashuMitra_Week1_Project_Plan.docx) | `stakeholder_diagram.png`, `flow_diagram.png`, `wireframe_diagram.png` |
+| 2 | Responsive Web Prototype Design | [`PashuMitra_Week2_Responsive_Prototype.docx`](PashuMitra_Week2_Responsive_Prototype.docx) | `sitemap_flow.png`, `responsive_homepage.png`, `form_mockup.png`, `grid_system.png` |
+| 3 | QA & Testing Strategy | [`PashuMitra_Week3_QA_Testing_Strategy.docx`](PashuMitra_Week3_QA_Testing_Strategy.docx) | `test_pyramid.png`, `cicd_pipeline.png`, `risk_heatmap.png` |
+| 4 | Performance, Accessibility & Security Audit | [`PashuMitra_Week4_Audit_Report.docx`](PashuMitra_Week4_Audit_Report.docx) | `web_vitals.png`, `lighthouse_scores.png`, `accessibility_pour.png`, `security_severity.png` |
+
+Each `.docx` file is the full written report for that week (requirements, design rationale, test cases, audit findings). The `.png` files are the diagrams, wireframes, and charts referenced inside each report — included here separately so they're easy to preview directly on GitHub.
 
 ## Tech stack proposed for implementation
 
