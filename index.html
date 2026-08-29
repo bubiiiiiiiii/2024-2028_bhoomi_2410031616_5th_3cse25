@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PashuMitra — Stray Animal Grievance Portal</title>
+<style>
+  :root{
+    --green-dark:#1F3D33;
+    --green:#2E5B4C;
+    --mid:#4F9A7C;
+    --mint:#B6E0CB;
+    --mint-light:#EAF3EE;
+    --sand:#FFF5E6;
+    --sand-text:#7A5A20;
+    --ink:#22322B;
+    --grey:#6B6B6B;
+    --line:#DADAD2;
+    --red:#C1502E;
+    --radius:10px;
+    --max-w:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:3px solid var(--green);
+    outline-offset:2px;
+  }
+
+  header.site-header{
+    background:var(--green);
+    position:sticky; top:0; z-index:50;
+  }
+  .header-inner{
+    max-width:var(--max-w); margin:0 auto; padding:0 1.1rem;
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px;
+  }
+  .brand{
+    color:#fff; font-weight:700; font-size:1.15rem; text-decoration:none;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .brand-mark{
+    width:26px; height:26px; border-radius:7px; background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--green); font-size:.85rem; font-weight:800;
+  }
+  nav.main-nav ul{
+    list-style:none; display:flex; gap:1.4rem; margin:0; padding:0;
+  }
+  nav.main-nav a{
+    color:#EAF3EE; text-decoration:none; font-size:.92rem; font-weight:600;
+    padding:.4rem .1rem; border-bottom:2px solid transparent;
+  }
+  nav.main-nav a:hover, nav.main-nav a.active{
+    color:#fff; border-bottom-color:var(--mint);
+  }
+  #nav-toggle{
+    display:none;
+    background:transparent; border:1px solid rgba(255,255,255,.5); color:#fff;
+    border-radius:6px; padding:.35rem .55rem; font-size:1.1rem; cursor:pointer;
+  }
+  @media (max-width:760px){
+    nav.main-nav{
+      display:none; position:absolute; top:60px; left:0; right:0;
+      background:var(--green-dark); padding:.5rem 1.1rem 1rem;
+    }
+    nav.main-nav.open{display:block;}
+    nav.main-nav ul{flex-direction:column; gap:0;}
+    nav.main-nav a{display:block; padding:.65rem .2rem; border-bottom:1px solid rgba(255,255,255,.12);}
+    #nav-toggle{display:inline-block;}
+  }
+
+  main{max-width:var(--max-w); margin:0 auto; padding:0 1.1rem;}
+  section.view{display:none; padding:2.2rem 0 3rem;}
+  section.view.active{display:block;}
+
+  .hero{
+    background:var(--mint-light); border-radius:var(--radius);
+    padding:2.4rem 1.6rem; display:grid; grid-template-columns:1.3fr .7fr; gap:1.5rem;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:2.1rem; margin:0 0 .6rem; color:var(--green-dark); line-height:1.15;
+  }
+  .hero p{color:var(--grey); margin:0 0 1.1rem; max-width:46ch;}
+  .hero-icon{
+    width:100%; aspect-ratio:1; max-width:220px; margin:0 auto;
+    border-radius:50%; background:var(--mint);
+    display:flex; align-items:center; justify-content:center; font-size:3.4rem;
+  }
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr; text-align:center;}
+    .hero p{margin-left:auto; margin-right:auto;}
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+    padding:.7rem 1.3rem; border-radius:8px; border:none; cursor:pointer;
+    font-weight:700; font-size:.92rem; text-decoration:none;
+  }
+  .btn-primary{background:var(--green); color:#fff;}
+  .btn-primary:hover{background:var(--green-dark);}
+  .btn-ghost{background:#fff; color:var(--green); border:1.5px solid var(--green);}
+  .btn-ghost:hover{background:var(--mint-light);}
+  .btn-sm{padding:.45rem .8rem; font-size:.82rem;}
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+
+  .cards{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.8rem;
+  }
+  @media (max-width:1024px){ .cards{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .cards{grid-template-columns:1fr;} }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:1.2rem; cursor:pointer; text-align:left; font-family:inherit;
+  }
+  .card:hover{border-color:var(--mid); box-shadow:0 2px 10px rgba(46,91,76,.08);}
+  .card-icon{
+    width:38px; height:38px; border-radius:50%; background:var(--mint);
+    display:flex; align-items:center; justify-content:center; font-size:1.1rem; margin-bottom:.6rem;
+  }
+  .card h3{margin:.1rem 0 .25rem; font-size:1rem; color:var(--ink);}
+  .card p{margin:0; font-size:.85rem; color:var(--grey);}
+
+  .helpline-banner{
+    margin-top:1.8rem; background:var(--sand); border-radius:var(--radius);
+    padding:.9rem 1.2rem; color:var(--sand-text); font-size:.88rem; text-align:center;
+  }
+
+  h2.view-title{color:var(--green-dark); margin-top:0;}
+  .view-sub{color:var(--grey); font-size:.92rem; margin-top:-.4rem; margin-bottom:1.4rem;}
+  .form-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:1rem 1.4rem;
+  }
+  @media (max-width:700px){ .form-grid{grid-template-columns:1fr;} }
+  .field{margin-bottom:1rem;}
+  .field.full{grid-column:1/-1;}
+  label{display:block; font-weight:700; font-size:.86rem; margin-bottom:.35rem;}
+  label .opt{font-weight:400; color:var(--grey);}
+  input[type=text], input[type=tel], textarea, select{
+    width:100%; padding:.6rem .7rem; border:1.4px solid var(--line); border-radius:7px;
+    font-size:.92rem; font-family:inherit; background:#FAFAF8;
+  }
+  input.invalid, textarea.invalid{border-color:var(--red); background:#FDF1EC;}
+  .error-msg{color:var(--red); font-size:.8rem; margin-top:.3rem; display:none;}
+  .error-msg.show{display:block;}
+  textarea{min-height:80px; resize:vertical;}
+  .chip-group{display:flex; flex-wrap:wrap; gap:.5rem;}
+  .chip{
+    border:1.5px solid var(--line); background:#fff; padding:.5rem .9rem; border-radius:20px;
+    cursor:pointer; font-size:.85rem; font-weight:600; color:var(--ink);
+  }
+  .chip[aria-pressed="true"]{background:var(--mint); border-color:var(--mid); color:var(--green-dark);}
+  .upload-zone{
+    border:2px dashed #8FC1A4; background:var(--mint-light); border-radius:var(--radius);
+    padding:1.4rem; text-align:center; cursor:pointer; color:var(--green-dark); font-size:.88rem;
+  }
+  .upload-zone:hover{background:#DFF0E7;}
+  .upload-preview{margin-top:.7rem; display:flex; align-items:center; gap:.6rem; font-size:.85rem;}
+  .upload-preview img{width:52px; height:52px; object-fit:cover; border-radius:6px; border:1px solid var(--line);}
+  .ward-readonly{
+    background:var(--mint-light); border:1px solid var(--mint); border-radius:7px;
+    padding:.6rem .8rem; font-size:.88rem; color:var(--green-dark);
+  }
+  .privacy-note{font-size:.78rem; color:var(--grey); margin-top:.3rem;}
+  .form-footer{display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem;}
+
+  .toast{
+    margin-top:1.1rem; background:var(--mint-light); border:1px solid var(--mid);
+    border-radius:8px; padding:.9rem 1.1rem; font-size:.9rem; display:none;
+  }
+  .toast.show{display:block;}
+  .toast strong{color:var(--green-dark);}
+
+  .case-list{display:flex; flex-direction:column; gap:1rem;}
+  .case-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem;
+  }
+  .case-card-head{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;
+  }
+  .case-id{font-weight:800; color:var(--green-dark);}
+  .case-meta{font-size:.8rem; color:var(--grey);}
+  .badge{
+    font-size:.72rem; font-weight:700; padding:.2rem .55rem; border-radius:12px;
+    background:var(--mint); color:var(--green-dark); text-transform:uppercase; letter-spacing:.02em;
+  }
+  .badge.urgent{background:#F6D9CC; color:#8A3B22;}
+  .stepper{display:flex; margin-top:1rem; gap:0;}
+  .step{flex:1; text-align:center; position:relative; font-size:.72rem; color:var(--grey);}
+  .step .dot{
+    width:16px; height:16px; border-radius:50%; background:var(--line); margin:0 auto .35rem;
+    border:2px solid #fff; box-shadow:0 0 0 2px var(--line);
+  }
+  .step.done .dot{background:var(--green); box-shadow:0 0 0 2px var(--green);}
+  .step.done{color:var(--ink); font-weight:600;}
+  .step:not(:last-child)::after{
+    content:""; position:absolute; top:7px; left:50%; width:100%; height:2px; background:var(--line); z-index:-1;
+  }
+  .step.done:not(:last-child)::after{background:var(--green);}
+  .sla-bar-wrap{margin-top:.9rem;}
+  .sla-bar-track{height:8px; background:var(--line); border-radius:6px; overflow:hidden;}
+  .sla-bar-fill{height:100%; background:#E0A458; border-radius:6px;}
+  .sla-bar-fill.breached{background:var(--red);}
+  .sla-label{font-size:.76rem; color:var(--grey); margin-top:.3rem;}
+  .case-actions{margin-top:.9rem; display:flex; gap:.6rem; flex-wrap:wrap;}
+  .empty-state{
+    text-align:center; padding:2.2rem 1rem; color:var(--grey); border:1px dashed var(--line); border-radius:var(--radius);
+  }
+
+  .feeder-id-card{
+    margin-top:1rem; border:1.5px solid var(--mid); border-radius:var(--radius);
+    background:var(--mint-light); padding:1.2rem; display:flex; gap:1rem; align-items:center;
+  }
+  .qr-box{
+    width:72px; height:72px; flex:none; background:repeating-linear-gradient(45deg,#1F3D33 0 4px,#fff 4px 8px);
+    border-radius:6px; border:1px solid var(--green-dark);
+  }
+  .feeder-list{margin-top:1.6rem; display:flex; flex-direction:column; gap:.7rem;}
+  .feeder-row{
+    display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    border:1px solid var(--line); border-radius:8px; padding:.7rem .9rem; font-size:.87rem;
+  }
+
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.8rem;}
+  @media (max-width:760px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat-card{border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem;}
+  .stat-card .num{font-size:1.9rem; font-weight:800; color:var(--green-dark);}
+  .stat-card .lbl{font-size:.8rem; color:var(--grey);}
+  .bars{display:flex; flex-direction:column; gap:.7rem; margin-top:.6rem;}
+  .bar-row{display:grid; grid-template-columns:150px 1fr 40px; align-items:center; gap:.7rem; font-size:.85rem;}
+  .bar-track{background:var(--mint-light); border-radius:6px; height:14px; overflow:hidden;}
+  .bar-fill{background:var(--mid); height:100%;}
+  @media (max-width:600px){ .bar-row{grid-template-columns:90px 1fr 30px; font-size:.78rem;} }
+
+  footer.site-footer{
+    background:var(--green-dark); color:#EAF3EE; text-align:center;
+    padding:1.4rem 1rem; font-size:.8rem; margin-top:2rem;
+  }
+  footer.site-footer a{color:#fff; text-decoration:underline;}
+
+  .sr-live{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#home" class="brand" data-nav="home">
+      <span class="brand-mark" aria-hidden="true">PM</span> PashuMitra
+    </a>
+    <button id="nav-toggle" aria-expanded="false" aria-controls="main-nav">☰ Menu</button>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="#home" data-nav="home">Home</a></li>
+        <li><a href="#report" data-nav="report">Report a Case</a></li>
+        <li><a href="#track" data-nav="track">Track My Case</a></li>
+        <li><a href="#feeder" data-nav="feeder">Feeder Registry</a></li>
+        <li><a href="#dashboard" data-nav="dashboard">Dashboard</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section id="view-home" class="view active" aria-labelledby="home-heading">
+    <div class="hero">
+      <div>
+        <h1 id="home-heading">Report a stray animal in seconds</h1>
+        <p>Photo, location, and live SLA tracking — routed straight to your ward officer and the nearest registered ABC/NGO partner.</p>
+        <button class="btn btn-primary" data-nav="report">Report Now</button>
+        <button class="btn btn-ghost" data-nav="track" style="margin-left:.6rem;">Track a case</button>
+      </div>
+      <div class="hero-icon" aria-hidden="true">🐾</div>
+    </div>
+
+    <div class="cards">
+      <button class="card" data-nav="report">
+        <div class="card-icon" aria-hidden="true">🐕</div>
+        <h3>Injured / Aggressive</h3>
+        <p>Urgent field response, routed to the nearest vet and ward officer.</p>
+      </button>
+      <button class="card" data-nav="feeder">
+        <div class="card-icon" aria-hidden="true">🍲</div>
+        <h3>Register as Feeder</h3>
+        <p>Get a digital feeder ID that protects you from harassment complaints.</p>
+      </button>
+      <button class="card" data-nav="track">
+        <div class="card-icon" aria-hidden="true">📍</div>
+        <h3>Track My Case</h3>
+        <p>See live status, SLA timers, and rate the resolution.</p>
+      </button>
+      <button class="card" data-nav="dashboard">
+        <div class="card-icon" aria-hidden="true">📊</div>
+        <h3>Public Dashboard</h3>
+        <p>Ward-wise open data on case volumes and closure times.</p>
+      </button>
+    </div>
+
+    <div class="helpline-banner">Helpline 1962 · Available 24x7 · Compliant with ABC Rules, 2023</div>
+  </section>
+
+  <section id="view-report" class="view" aria-labelledby="report-heading">
+    <h2 class="view-title" id="report-heading">Report a Stray Animal Case</h2>
+    <p class="view-sub">All fields marked * are required. Your phone number is never shared with field partners.</p>
+
+    <form id="report-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="rf-name">Your name *</label>
+          <input type="text" id="rf-name" name="name" required autocomplete="name">
+          <div class="error-msg" id="err-name">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="rf-phone">Phone number *</label>
+          <input type="tel" id="rf-phone" name="phone" required inputmode="numeric" maxlength="10"
+                 placeholder="10-digit mobile" autocomplete="tel">
+          <div class="error-msg" id="err-phone">Enter a valid 10-digit number.</div>
+          <div class="privacy-note">Kept private — never shared with NGOs or field staff.</div>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label id="cat-label">Case category *</label>
+        <div class="chip-group" role="group" aria-labelledby="cat-label" id="category-chips">
+          <button type="button" class="chip" data-cat="Injured" aria-pressed="false">Injured</button>
+          <button type="button" class="chip" data-cat="Aggressive" aria-pressed="false">Aggressive / Bite risk</button>
+          <button type="button" class="chip" data-cat="Feeding dispute" aria-pressed="false">Feeding dispute</button>
+          <button type="button" class="chip" data-cat="Rescue needed" aria-pressed="false">Rescue needed</button>
+        </div>
+        <div class="error-msg" id="err-cat">Please select one category.</div>
+      </div>
+
+      <div class="field full">
+        <label for="rf-photo">Upload photo *</label>
+        <label class="upload-zone" for="rf-photo">
+          📷 Tap to capture or choose a photo — helps our team triage severity instantly
+        </label>
+        <input type="file" id="rf-photo" accept="image/*" class="visually-hidden" required>
+        <div id="photo-preview" class="upload-preview" style="display:none;">
+          <img id="photo-preview-img" alt="Preview of the uploaded photo">
+          <span id="photo-preview-name"></span>
+        </div>
+        <div class="error-msg" id="err-photo">Please attach a photo.</div>
+      </div>
+
+      <div class="field full">
+        <label>Ward (auto-detected)</label>
+        <div class="ward-readonly">📍 Ward 12, Sector 45 — based on your device location</div>
+      </div>
+
+      <div class="field full">
+        <label for="rf-desc">Describe what you see <span class="opt">(optional)</span></label>
+        <textarea id="rf-desc" placeholder="e.g., limping on hind leg, near the bus stand"></textarea>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="btn btn-primary">Submit Report</button>
+        <span style="font-size:.82rem; color:var(--grey);">You'll get a case number immediately below.</span>
+      </div>
+
+      <div class="toast" id="report-toast" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section id="view-track" class="view" aria-labelledby="track-heading">
+    <h2 class="view-title" id="track-heading">Track My Case</h2>
+    <p class="view-sub">Cases you've submitted this session. Use "Advance status" to see how a real case would progress.</p>
+    <div id="case-list" class="case-list"></div>
+    <div id="case-empty" class="empty-state">
+      No cases yet. <button class="btn btn-ghost btn-sm" data-nav="report" style="margin-top:.6rem;">Report your first case</button>
+    </div>
+  </section>
+
+  <section id="view-feeder" class="view" aria-labelledby="feeder-heading">
+    <h2 class="view-title" id="feeder-heading">Feeder Registry</h2>
+    <p class="view-sub">Register as an authorised community feeder and get a digital ID you can show if challenged.</p>
+
+    <form id="feeder-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="ff-name">Your name *</label>
+          <input type="text" id="ff-name" required autocomplete="name">
+          <div class="error-msg" id="err-fname">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="ff-spot">Designated feeding spot *</label>
+          <input type="text" id="ff-spot" required placeholder="e.g., Park Street, near Gate 2">
+          <div class="error-msg" id="err-fspot">Please enter a location.</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Register as Feeder</button>
+    </form>
+
+    <div id="feeder-id-card" class="feeder-id-card" style="display:none;">
+      <div class="qr-box" aria-hidden="true"></div>
+      <div>
+        <div style="font-weight:800; color:var(--green-dark);" id="feeder-id-text"></div>
+        <div style="font-size:.82rem; color:var(--grey);">Show this ID if a neighbour or officer questions your feeding activity.</div>
+      </div>
+    </div>
+
+    <div class="feeder-list" id="feeder-list" aria-live="polite"></div>
+  </section>
+
+  <section id="view-dashboard" class="view" aria-labelledby="dash-heading">
+    <h2 class="view-title" id="dash-heading">Public Dashboard</h2>
+    <p class="view-sub">Ward-wise open data — updates live as cases are reported and resolved in this session.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num" id="stat-total">0</div><div class="lbl">Total cases</div></div>
+      <div class="stat-card"><div class="num" id="stat-open">0</div><div class="lbl">Open</div></div>
+      <div class="stat-card"><div class="num" id="stat-closed">0</div><div class="lbl">Closed</div></div>
+      <div class="stat-card"><div class="num" id="stat-feeders">0</div><div class="lbl">Registered feeders</div></div>
+    </div>
+
+    <h3 style="color:var(--green-dark); font-size:1rem;">Cases by category</h3>
+    <div class="bars" id="category-bars"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  © Municipal Corporation of [City] · Accessibility Statement · RTI · Privacy Policy ·
+  <a href="https://github.com/" target="_blank" rel="noopener">Project on GitHub</a>
+</footer>
+
+<div class="sr-live" aria-live="polite" id="sr-announcer"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var cases = [];
+  var feeders = [];
+  var caseCounter = 10430;
+  var STAGES = ["Reported","Triaged","Assigned to NGO","Field visit done","Closed & verified"];
+
+  function announce(msg){
+    var el = document.getElementById("sr-announcer");
+    el.textContent = "";
+    setTimeout(function(){ el.textContent = msg; }, 30);
+  }
+
+  var navLinks = document.querySelectorAll("[data-nav]");
+  var views = document.querySelectorAll(".view");
+  var mainNav = document.getElementById("main-nav");
+  var navToggle = document.getElementById("nav-toggle");
+
+  function goTo(name){
+    views.forEach(function(v){ v.classList.remove("active"); });
+    var target = document.getElementById("view-" + name);
+    if(target){ target.classList.add("active"); target.querySelector("h1,h2").focus && target.querySelector("h1,h2"); }
+    navLinks.forEach(function(l){
+      if(l.tagName === "A"){ l.classList.toggle("active", l.dataset.nav === name); }
+    });
+    mainNav.classList.remove("open");
+    navToggle.setAttribute("aria-expanded","false");
+    window.scrollTo({top:0, behavior:"smooth"});
+    if(name === "track") renderCases();
+    if(name === "dashboard") renderDashboard();
+    if(name === "feeder") renderFeeders();
+  }
+
+  navLinks.forEach(function(el){
+    el.addEventListener("click", function(e){
+      e.preventDefault();
+      goTo(el.dataset.nav);
+    });
+  });
+
+  navToggle.addEventListener("click", function(){
+    var open = mainNav.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  function routeFromHash(){
+    var hash = (location.hash || "#home").replace("#","");
+    if(document.getElementById("view-" + hash)) goTo(hash);
+  }
+  window.addEventListener("hashchange", routeFromHash);
+
+  var reportForm = document.getElementById("report-form");
+  var selectedCategory = null;
+  var uploadedPhotoData = null;
+
+  document.querySelectorAll("#category-chips .chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      document.querySelectorAll("#category-chips .chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      selectedCategory = chip.dataset.cat;
+      document.getElementById("err-cat").classList.remove("show");
+    });
+  });
+
+  var photoInput = document.getElementById("rf-photo");
+  photoInput.addEventListener("change", function(){
+    var file = photoInput.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      uploadedPhotoData = e.target.result;
+      document.getElementById("photo-preview-img").src = uploadedPhotoData;
+      document.getElementById("photo-preview-name").textContent = file.name;
+      document.getElementById("photo-preview").style.display = "flex";
+      document.getElementById("err-photo").classList.remove("show");
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function setError(inputEl, errId, isInvalid){
+    document.getElementById(errId).classList.toggle("show", isInvalid);
+    if(inputEl) inputEl.classList.toggle("invalid", isInvalid);
+  }
+
+  reportForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("rf-name");
+    var phone = document.getElementById("rf-phone");
+    var desc = document.getElementById("rf-desc").value.trim();
+
+    var nameInvalid = name.value.trim().length === 0;
+    var phoneInvalid = !/^[0-9]{10}$/.test(phone.value.trim());
+    var catInvalid = !selectedCategory;
+    var photoInvalid = !uploadedPhotoData;
+
+    setError(name, "err-name", nameInvalid);
+    setError(phone, "err-phone", phoneInvalid);
+    setError(null, "err-cat", catInvalid);
+    setError(null, "err-photo", photoInvalid);
+
+    if(nameInvalid || phoneInvalid || catInvalid || photoInvalid){
+      announce("There are errors in the form. Please review the highlighted fields.");
+      return;
+    }
+
+    caseCounter++;
+    var isUrgent = (selectedCategory === "Injured" || selectedCategory === "Aggressive");
+    var newCase = {
+      id: "PM-" + caseCounter,
+      reporter: name.value.trim(),
+      category: selectedCategory,
+      urgent: isUrgent,
+      desc: desc,
+      photo: uploadedPhotoData,
+      stageIndex: 0,
+      submittedAt: new Date()
+    };
+    cases.unshift(newCase);
+
+    var toast = document.getElementById("report-toast");
+    toast.innerHTML = "<strong>Report submitted.</strong> Your case ID is <strong>" + newCase.id +
+      "</strong>. Track its status any time from \"Track My Case.\"";
+    toast.classList.add("show");
+    announce("Case " + newCase.id + " submitted successfully.");
+
+    reportForm.reset();
+    selectedCategory = null;
+    uploadedPhotoData = null;
+    document.querySelectorAll("#category-chips .chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+    document.getElementById("photo-preview").style.display = "none";
+    [name, phone].forEach(function(el){ el.classList.remove("invalid"); });
+  });
+
+  function slaMinutesUsed(c){
+    return Math.min(100, c.stageIndex * 22 + 6);
+  }
+
+  function renderCases(){
+    var list = document.getElementById("case-list");
+    var empty = document.getElementById("case-empty");
+    list.innerHTML = "";
+    if(cases.length === 0){ empty.style.display = "block"; return; }
+    empty.style.display = "none";
+
+    cases.forEach(function(c, idx){
+      var pct = slaMinutesUsed(c);
+      var breached = pct >= 100;
+      var card = document.createElement("div");
+      card.className = "case-card";
+
+      var stepsHtml = STAGES.map(function(s, i){
+        return '<div class="step ' + (i <= c.stageIndex ? "done" : "") + '">' +
+               '<div class="dot"></div>' + s + '</div>';
+      }).join("");
+
+      var canAdvance = c.stageIndex < STAGES.length - 1;
+
+      card.innerHTML =
+        '<div class="case-card-head">' +
+          '<div><span class="case-id">' + c.id + '</span> &nbsp; ' +
+            '<span class="badge ' + (c.urgent ? "urgent" : "") + '">' + c.category + '</span>' +
+            '<div class="case-meta">Reported by ' + c.reporter + ' · ' + c.submittedAt.toLocaleTimeString() + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="stepper">' + stepsHtml + '</div>' +
+        '<div class="sla-bar-wrap">' +
+          '<div class="sla-bar-track"><div class="sla-bar-fill ' + (breached ? "breached" : "") + '" style="width:' + pct + '%"></div></div>' +
+          '<div class="sla-label">' + (breached ? "SLA breached — auto-escalated to Commissioner's office" : STAGES[c.stageIndex] + " · SLA " + pct + "% used") + '</div>' +
+        '</div>' +
+        '<div class="case-actions">' +
+          (canAdvance ? '<button class="btn btn-primary btn-sm" data-advance="' + idx + '">Advance status →</button>' : '<span class="badge">Resolved</span>') +
+        '</div>';
+      list.appendChild(card);
+    });
+
+    list.querySelectorAll("[data-advance]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var i = parseInt(btn.dataset.advance, 10);
+        cases[i].stageIndex = Math.min(cases[i].stageIndex + 1, STAGES.length - 1);
+        announce(cases[i].id + " moved to " + STAGES[cases[i].stageIndex]);
+        renderCases();
+      });
+    });
+  }
+
+  var feederForm = document.getElementById("feeder-form");
+  feederForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("ff-name");
+    var spot = document.getElementById("ff-spot");
+    var nameInvalid = name.value.trim().length === 0;
+    var spotInvalid = spot.value.trim().length === 0;
+    setError(name, "err-fname", nameInvalid);
+    setError(spot, "err-fspot", spotInvalid);
+    if(nameInvalid || spotInvalid) return;
+
+    var id = "FD-" + Math.random().toString(36).slice(2,7).toUpperCase();
+    feeders.unshift({ id: id, name: name.value.trim(), spot: spot.value.trim() });
+
+    document.getElementById("feeder-id-text").textContent = "Feeder ID: " + id;
+    document.getElementById("feeder-id-card").style.display = "flex";
+    announce("Feeder ID " + id + " issued.");
+    feederForm.reset();
+    renderFeeders();
+  });
+
+  function renderFeeders(){
+    var list = document.getElementById("feeder-list");
+    list.innerHTML = "";
+    feeders.forEach(function(f){
+      var row = document.createElement("div");
+      row.className = "feeder-row";
+      row.innerHTML = "<span><strong>" + f.name + "</strong> — " + f.spot + "</span><span class='badge'>" + f.id + "</span>";
+      list.appendChild(row);
+    });
+  }
+
+  function renderDashboard(){
+    var total = cases.length;
+    var closed = cases.filter(function(c){ return c.stageIndex === STAGES.length - 1; }).length;
+    document.getElementById("stat-total").textContent = total;
+    document.getElementById("stat-open").textContent = total - closed;
+    document.getElementById("stat-closed").textContent = closed;
+    document.getElementById("stat-feeders").textContent = feeders.length;
+
+    var cats = ["Injured","Aggressive","Feeding dispute","Rescue needed"];
+    var counts = cats.map(function(cat){ return cases.filter(function(c){ return c.category === cat; }).length; });
+    var max = Math.max(1, Math.max.apply(null, counts));
+    var wrap = document.getElementById("category-bars");
+    wrap.innerHTML = "";
+    cats.forEach(function(cat, i){
+      var pct = Math.round((counts[i] / max) * 100);
+      var row = document.createElement("div");
+      row.className = "bar-row";
+      row.innerHTML = "<span>" + cat + "</span>" +
+        "<span class='bar-track'><span class='bar-fill' style='width:" + pct + "%'></span></span>" +
+        "<span>" + counts[i] + "</span>";
+      wrap.appendChild(row);
+    });
+  }
+
+  renderDashboard();
+  routeFromHash();
+})();
+</script>
+</body>
+</html>
