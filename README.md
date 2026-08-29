@@ -1,19 +1,28 @@
 # PashuMitra — E-Governance Digital Service (Virtual Internship Project)
 
-**PashuMitra** ("friend of animals") is a proposed ward-level stray animal grievance and care coordination platform, designed as a digital service for municipal corporations under India's Animal Birth Control (ABC) Rules, 2023. It was developed over a 4-week virtual Junior Web Developer internship, covering the full pre-build lifecycle of a civic-tech e-governance product: requirements planning, UI/UX design, QA strategy, and a pre-launch audit.
+**PashuMitra** ("friend of animals") is a proposed ward-level stray animal grievance and care coordination platform, designed as a digital service for municipal corporations under India's Animal Birth Control (ABC) Rules, 2023. It was developed over a 4-week virtual Junior Web Developer internship, covering the full pre-build lifecycle of a civic-tech e-governance product: requirements planning, UI/UX design, QA strategy, and a pre-launch audit — plus a working front-end prototype built to demonstrate the design in real code.
 
 Rather than a generic "citizen complaint portal," PashuMitra is scoped around the real ABC Rules legal workflow (capture → sterilise → vaccinate → release/shelter), the actual stakeholders involved (citizens, ward officers, AWBI-recognised NGOs, veterinary teams), and the public-health urgency around dog-bite and rabies response — grounded in research on existing initiatives like Panvel's ABC Helpline, MCD's feeding-point registry, and DigiLocker/UMANG's identity patterns.
 
-## Weekly deliverables
+## In this repository
 
-| Week | Focus | Document | Key artifacts |
-|------|-------|----------|----------------|
-| 1 | Planning & Requirements Analysis | [`PashuMitra_Week1_Project_Plan.docx`](PashuMitra_Week1_Project_Plan.docx) | `stakeholder_diagram.png`, `flow_diagram.png`, `wireframe_diagram.png` |
-| 2 | Responsive Web Prototype Design | [`PashuMitra_Week2_Responsive_Prototype.docx`](PashuMitra_Week2_Responsive_Prototype.docx) | `sitemap_flow.png`, `responsive_homepage.png`, `form_mockup.png`, `grid_system.png` |
-| 3 | QA & Testing Strategy | [`PashuMitra_Week3_QA_Testing_Strategy.docx`](PashuMitra_Week3_QA_Testing_Strategy.docx) | `test_pyramid.png`, `cicd_pipeline.png`, `risk_heatmap.png` |
-| 4 | Performance, Accessibility & Security Audit | [`PashuMitra_Week4_Audit_Report.docx`](PashuMitra_Week4_Audit_Report.docx) | `web_vitals.png`, `lighthouse_scores.png`, `accessibility_pour.png`, `security_severity.png` |
+| File | What it is |
+|------|------------|
+| [`PashuMitra_Internship_Completion_Report.docx`](PashuMitra_Internship_Completion_Report.docx) | Full internship report — objectives, week-by-week summary, skills gained, challenges, and conclusion |
+| [`PashuMitra_Internship_Summary.pptx`](PashuMitra_Internship_Summary.pptx) | Presentation summarising the project across all four weeks |
+| [`index.html`](index.html) | **Working prototype** — a functional citizen portal (report a case, track status, feeder registry, live dashboard). Open it directly in a browser, or view it live via GitHub Pages if enabled |
+| [`Completion_Certificate.pdf`](Completion_Certificate.pdf) | Internship completion certificate |
 
-Each `.docx` file is the full written report for that week (requirements, design rationale, test cases, audit findings). The `.png` files are the diagrams, wireframes, and charts referenced inside each report — included here separately so they're easy to preview directly on GitHub.
+## Project background
+
+The project was carried out in four phases:
+
+1. **Planning & Requirements Analysis** — stakeholder personas, functional/non-functional requirements, risk analysis
+2. **Responsive Web Prototype Design** — site map, high-fidelity mockups across breakpoints, accessibility-first UI
+3. **QA & Testing Strategy** — test pyramid, 7 detailed test cases, CI/CD pipeline, risk heatmap
+4. **Performance, Accessibility & Security Audit** — Core Web Vitals, WCAG 2.1 AA compliance, OWASP-based findings
+
+Full detail on each phase is documented in the completion report above.
 
 ## Tech stack proposed for implementation
 
