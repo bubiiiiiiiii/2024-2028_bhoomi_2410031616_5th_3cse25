@@ -8,7 +8,7 @@ Rather than a generic "citizen complaint portal," PashuMitra is scoped around th
 
 | File | What it is |
 |------|------------|
-| [`PashuMitra_Internship_Completion_Report.docx`](PashuMitra_Internship_Completion_Report.pdf) | Full internship report — objectives, week-by-week summary, skills gained, challenges, and conclusion |
+| [`PashuMitra_Internship_Completion_Report.docx`](PashuMitra_Internship_Report.pdf) | Full internship report — objectives, week-by-week summary, skills gained, challenges, and conclusion |
 | [`PashuMitra_Internship_Summary.pptx`](PashuMitra_Internship_Summary.pdf) | Presentation summarising the project across all four weeks |
 | [`index.html`](index.html) | **Working prototype** — a functional citizen portal (report a case, track status, feeder registry, live dashboard). Open it directly in a browser, or view it live via GitHub Pages if enabled |
 | [`Completion_Certificate.pdf`](completion_certificate.pdf) | Internship completion certificate |
